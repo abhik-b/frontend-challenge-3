@@ -7,10 +7,10 @@ function newTodo(value, checked = false) {
 
   todoText.textContent = value;
   todoCheckBox.type = "checkbox";
-  todoCheckBox.id = `${value}`;
+  todoCheckBox.id = `${value.replace(/\s+/g, "")}`;
   todoCheckBox.title = "checkbox";
   todoCheckBox.checked = checked;
-  todoCheckBoxLabel.htmlFor = `${value}`;
+  todoCheckBoxLabel.htmlFor = `${value.replace(/\s+/g, "")}`;
 
   todoCheckBoxLabel.addEventListener("click", function (e) {
     if (todoCheckBox.checked) {
