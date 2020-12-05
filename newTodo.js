@@ -1,4 +1,4 @@
-function newTodo(value, checked = false) {
+function newTodo(value, completed = false) {
   const todo = document.createElement("div");
   const todoText = document.createElement("p");
   const todoCheckBox = document.createElement("input");
@@ -8,22 +8,21 @@ function newTodo(value, checked = false) {
   todoText.textContent = value;
   todoCheckBox.type = "checkbox";
   todoCheckBox.id = `${value.replace(/\s+/g, "")}`;
+  todoCheckBox.name = `${value.replace(/\s+/g, "")}`;
   todoCheckBox.title = "checkbox";
-  todoCheckBox.checked = checked;
+  todoCheckBox.checked = completed;
   todoCheckBoxLabel.htmlFor = `${value.replace(/\s+/g, "")}`;
 
   todoCheckBoxLabel.addEventListener("click", function (e) {
     if (todoCheckBox.checked) {
-      todoCheckBox.checked = false;
-      todoText.style.textDecoration = "none";
+      todoText.classList.remove("strikethrough");
       todoCheckBoxLabel.classList.remove("active");
       updateTodos(value, false);
       countComplted();
     } else {
       updateTodos(value, true);
       countComplted();
-      todoCheckBox.checked = true;
-      todoText.style.textDecoration = "line-through";
+      todoText.classList.add("strikethrough");
       todoCheckBoxLabel.classList.add("active");
     }
   });
@@ -39,9 +38,9 @@ function newTodo(value, checked = false) {
 
   todo.classList.add("todo");
   todoCheckBoxLabel.classList.add("circle");
-  if (checked) {
+  if (todoCheckBox.checked) {
     todoCheckBoxLabel.classList.add("active");
-    todoText.style.textDecoration = "line-through";
+    todoText.classList.add("strikethrough");
   }
   todoCross.classList.add("cross");
 
@@ -64,7 +63,7 @@ function isBefore(elem1, el2) {
 }
 
 // pure js dragging for pointer devices
-// todo.draggable = true;
+//todo.draggable = true;
 // todo.addEventListener("dragstart", (e) => {
 //   e.dataTransfer.effectAllowed = "move";
 //   elem = e.target;
