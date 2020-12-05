@@ -6,7 +6,20 @@ const remarks = document.querySelector(".remarks");
 const footer = document.querySelector(".footer");
 
 var elem = null;
-let todos = [];
+let todos = [
+  { value: "Complete online javascript course", checked: true },
+  { value: "Jog around the park 3x", checked: false },
+  { value: "10 minute meditation", checked: false },
+  { value: "Read for 1 hour", checked: false },
+  { value: "Pick up groceries", checked: false },
+  { value: "Complete todo app on FrontendMentor", checked: false },
+];
+window.addEventListener("load", () => {
+  todos.forEach((t) => {
+    newTodo(t.value, t.checked);
+    countComplted();
+  });
+});
 
 function updateUi(notodos) {
   if (notodos) {
@@ -16,16 +29,19 @@ function updateUi(notodos) {
     const p = document.createElement("p");
     p.textContent = "No todos ";
     remarks.appendChild(p);
+    remarks.style.borderRadius = "8px";
     footer.style.display = "none";
   } else {
     footer.style.display = "block";
+    remarks.style.borderRadius = "0px";
+    remarks.style.borderBottomLeftRadius = "8px";
+    remarks.style.borderBottomRightRadius = "8px";
     remarks.querySelector("p").remove();
     remarks.querySelectorAll("div").forEach((d) => {
       d.style.display = "flex";
     });
   }
 }
-updateUi(true);
 
 todoInput.addEventListener("keyup", function (e) {
   if (e.key === "Enter" || e.keyCode === 13) {
@@ -122,3 +138,28 @@ function filterActive(e) {
     }
   });
 }
+
+var el = document.querySelector(".todos");
+var sortable = Sortable.create(el, {
+  onEnd: function (evt) {
+    const todo = evt.item;
+    const value = todo.querySelector("p").textContent;
+    let index = todos.findIndex((t) => t.value === value);
+    todos.splice(index, 1);
+
+    if (todo.nextSibling) {
+      let index1 = todos.findIndex(
+        (t) => t.value === todo.nextSibling.querySelector("p").textContent
+      );
+      todos.splice(index1, 0, {
+        value: value,
+        checked: todo.querySelector("input").checked,
+      });
+    } else {
+      todos.push({
+        value: value,
+        checked: todo.querySelector("input").checked,
+      });
+    }
+  },
+});

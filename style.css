@@ -198,6 +198,7 @@ main {
   height: 55px;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
+  transition: 0.5s;
 
   display: flex;
   justify-content: space-between;
@@ -235,7 +236,8 @@ main {
   color: hsl(234, 11%, 52%);
 }
 .footer {
-  opacity: 0;
+  margin-top: 110px;
+  text-align: center;
 }
 @media screen and (min-width: 800px) {
   body {
@@ -245,7 +247,7 @@ main {
     --top-img: url("./images/bg-desktop-light.jpg");
   }
   main {
-    padding-top: 90px;
+    padding-top: 40px;
   }
   .header,
   .type-todo,
@@ -268,14 +270,12 @@ main {
   }
   .todo {
     grid-template-columns: 5% auto 5%;
-    padding: 10px 5px;
+    /* padding: 10px 5px; */
   }
   .todo span {
     text-align: right;
   }
   .footer {
-    opacity: 1;
-    text-align: center;
     margin-top: 24px;
   }
 }
