@@ -27,6 +27,22 @@ function newTodo(value, completed = false) {
     }
   });
 
+  todoText.addEventListener("click", function (e) {
+    if (todoCheckBox.checked) {
+      todoCheckBox.checked = false;
+      todoText.classList.remove("strikethrough");
+      todoCheckBoxLabel.classList.remove("active");
+      updateTodos(value, false);
+      countComplted();
+    } else {
+      todoCheckBox.checked = true;
+      updateTodos(value, true);
+      countComplted();
+      todoText.classList.add("strikethrough");
+      todoCheckBoxLabel.classList.add("active");
+    }
+  });
+
   todoCross.addEventListener("click", function (e) {
     e.target.parentElement.remove();
     todos = todos.filter((t) => t.value !== value);
